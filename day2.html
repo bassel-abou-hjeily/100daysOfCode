@@ -72,6 +72,7 @@
         .operator-btn:active {
             background-color: rgb(255, 202, 128);
         }
+
         .delete-btn {
             background-color: rgb(255, 77, 77);
         }
@@ -119,12 +120,8 @@
             const currentText = display.value;
             const operators = ['+', '-', '*', '/'];
             const lastChar = currentText.slice(-1);
-
-            // Check if the input is an operator
             if (operators.includes(input)) {
-                // Check if the last character is also an operator
                 if (operators.includes(lastChar)) {
-                    // Replace last operator if it's the same type
                     if (input === lastChar) {
                         return;
                     } else {
@@ -152,18 +149,15 @@
 
         document.getElementById("equal").addEventListener("click", () => {
             try {
-                // Using a safer evaluation method
                 const result = new Function('return ' + display.value)();
                 display.value = result;
             } catch (error) {
                 display.value = "ERROR";
             }
         });
-
-        // Keyboard support
         document.addEventListener("keydown", (event) => {
             const key = event.key;
-            if (!isNaN(key) || ['+', '-', '*', '/'].includes(key) || key === '.') {
+            if (!isNaN(key) || ['+', '-', '*', '/', '(', ')'].includes(key) || key === '.') {
                 appendToDisplay(key);
             } else if (key === 'Enter') {
                 document.getElementById("equal").click();
